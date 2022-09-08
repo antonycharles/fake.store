@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+    accountsdb:
+        image: mcr.microsoft.com/mssql/server
+        volumes:
+            - accounts_db:/var/opt/mssql
+        container_name: accountsdb
+        ports:
+            - "1433:1433"
+        environment:
+            MSSQL_SA_PASSWORD: "P@ssw0rd"
+            ACCEPT_EULA: "Y"
+            MSSQL_PID: "Express"
+volumes:
+    accounts_db:
+        driver: local
