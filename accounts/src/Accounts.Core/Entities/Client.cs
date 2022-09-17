@@ -14,8 +14,8 @@ namespace Accounts.Core.Entities
         public bool IsAppAuthentication { get; set; }
         public StatusEnum Status { get; set; }
         [Required]
-        public Guid ApplicationId { get; set; }
-        public virtual App Application { get; set; }
+        public Guid AppId { get; set; }
+        public virtual App App { get; set; }
         public ICollection<ClientProfile> ClientsProfiles { get; set; }
     }
 }

@@ -21,15 +21,17 @@ namespace Accounts.API.Configurations
 
         private static void AddHandlerDependencyInjection(this IServiceCollection services)
         {
-            services.AddSingleton<AppHandler>();
+            services.AddScoped<AppHandler>();
+            services.AddScoped<RoleHandler>();
         }
 
 
         private static void AddRepositoryDependencyInjection(this IServiceCollection services)
         {
-            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IAppRepository,ApplicationRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAppRepository,AppRepository>();
+            services.AddScoped<IRoleRepository,RoleRepository>();
         }
     }
 }

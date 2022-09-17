@@ -1,6 +1,6 @@
-using Accounts.Application.DTOs.App;
+using Accounts.Application.DTO.Apps;
 using Accounts.Application.Exceptions;
-using Accounts.Core.DTOs.Application;
+using Accounts.Core.DTO.Apps;
 using Accounts.Core.Entities;
 using Accounts.Core.Repositories;
 
@@ -10,9 +10,9 @@ namespace Accounts.Application.Handlers
     {
         private readonly IAppRepository _appRepository;
         
-        public AppHandler(IAppRepository applicationRepository)
+        public AppHandler(IAppRepository appRepository)
         {
-            _appRepository = applicationRepository;
+            _appRepository = appRepository;
         }
 
         public async Task<IEnumerable<AppResponse>> GetAllAsync()

@@ -1,31 +1,34 @@
-using Accounts.Application.DTO.Apps;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Accounts.Application.DTO.Roles;
 using Accounts.Application.Exceptions;
 using Accounts.Application.Handlers;
-using Accounts.Core.DTO.Apps;
-using Accounts.Core.Entities;
+using Accounts.Core.DTO.Roles;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accounts.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AppController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly AppHandler _appHandler;
+        private readonly RoleHandler _roleHandler;
 
-        public AppController(AppHandler appHandler)
+        public RoleController(RoleHandler roleHandler)
         {
-            _appHandler = appHandler ?? throw new ArgumentNullException(nameof(appHandler));
+            _roleHandler = roleHandler ?? throw new ArgumentNullException(nameof(roleHandler));
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<AppResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<AppResponse>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<RoleResponse>>> GetAsync()
         {
             try
             {
-                var apps = await _appHandler.GetAllAsync();
+                var apps = await _roleHandler.GetAllAsync();
                 return Ok(apps);
             }
             catch (Exception e)
@@ -36,14 +39,14 @@ namespace Accounts.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(IEnumerable<AppResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AppResponse>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<RoleResponse>> GetByIdAsync(Guid id)
         {
             try
             {
-                var app = await _appHandler.GetByIdAsync(id);
+                var app = await _roleHandler.GetByIdAsync(id);
                 return Ok(app);
             }
             catch(NotFoundException e)
@@ -59,13 +62,13 @@ namespace Accounts.API.Controllers
         
 
         [HttpPost]
-        [ProducesResponseType(typeof(AppResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AppResponse>> CreateAsync(AppRequest request)
+        public async Task<ActionResult<RoleResponse>> CreateAsync(RoleRequest request)
         {
             try
             {
-                return Created("", await _appHandler.CreateAsync(request));
+                return Created("", await _roleHandler.CreateAsync(request));
             }
             catch(Exception e)
             {  
@@ -78,11 +81,11 @@ namespace Accounts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AppRequest request)
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] RoleRequest request)
         {
             try
             {
-                await _appHandler.UpdateAsync(id, request);
+                await _roleHandler.UpdateAsync(id, request);
                 return Ok();
             }
             catch(NotFoundException e)
@@ -104,7 +107,7 @@ namespace Accounts.API.Controllers
         {
             try
             {
-                await _appHandler.DeleteAsync(id);
+                await _roleHandler.DeleteAsync(id);
 
                 return Ok();
             }
@@ -117,6 +120,5 @@ namespace Accounts.API.Controllers
                 return Problem(e.Message, statusCode: StatusCodes.Status500InternalServerError);
             }
         }
-        
     }
 }

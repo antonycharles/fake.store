@@ -13,7 +13,7 @@ namespace Accounts.Infrastructure.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder
-                .HasIndex(s => new { s.ApplicationId, s.Slug })
+                .HasIndex(s => new { s.AppId, s.Slug })
                 .IsUnique();
 
             builder

@@ -1,7 +1,7 @@
-using Accounts.Application.DTOs.App;
+using Accounts.Application.DTO.Apps;
 using Accounts.Core.Entities;
 
-namespace Accounts.Core.DTOs.Application
+namespace Accounts.Core.DTO.Apps
 {
     public static class AppMapper
     {

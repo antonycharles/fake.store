@@ -18,8 +18,8 @@ namespace Accounts.Core.Entities
         public bool IsDefault { get; set; }
         public bool IsSystem { get; set; }
         [Required]
-        public Guid ApplicationId { get; set; }
-        public virtual App Application { get; set; }
+        public Guid AppId { get; set; }
+        public virtual App App { get; set; }
         public ICollection<ProfileRole> ProfilesRoles { get; set; }
         public ICollection<UserProfile> ProfilesUsers { get; set;}
         public ICollection<ClientProfile> ProfilesClients { get; set;}

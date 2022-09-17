@@ -54,7 +54,7 @@ namespace Accounts.Infrastructure.Migrations
                     SecretKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsAppAuthentication = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -62,8 +62,8 @@ namespace Accounts.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Clients_Apps_ApplicationId",
-                        column: x => x.ApplicationId,
+                        name: "FK_Clients_Apps_AppId",
+                        column: x => x.AppId,
                         principalTable: "Apps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -79,7 +79,7 @@ namespace Accounts.Infrastructure.Migrations
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     IsSystem = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -87,8 +87,8 @@ namespace Accounts.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Profiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Profiles_Apps_ApplicationId",
-                        column: x => x.ApplicationId,
+                        name: "FK_Profiles_Apps_AppId",
+                        column: x => x.AppId,
                         principalTable: "Apps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -103,8 +103,8 @@ namespace Accounts.Infrastructure.Migrations
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsSystem = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    FatherIdId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ApplicationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FatherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AppId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -112,14 +112,14 @@ namespace Accounts.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Roles_Apps_ApplicationId",
-                        column: x => x.ApplicationId,
+                        name: "FK_Roles_Apps_AppId",
+                        column: x => x.AppId,
                         principalTable: "Apps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Roles_Roles_FatherIdId",
-                        column: x => x.FatherIdId,
+                        name: "FK_Roles_Roles_FatherId",
+                        column: x => x.FatherId,
                         principalTable: "Roles",
                         principalColumn: "Id");
                 });
@@ -223,9 +223,9 @@ namespace Accounts.Infrastructure.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_ApplicationId",
+                name: "IX_Clients_AppId",
                 table: "Clients",
-                column: "ApplicationId");
+                column: "AppId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientsProfiles_ClientId",
@@ -233,9 +233,9 @@ namespace Accounts.Infrastructure.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_ApplicationId",
+                name: "IX_Profiles_AppId",
                 table: "Profiles",
-                column: "ApplicationId");
+                column: "AppId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProfilesRoles_RoleId",
@@ -243,15 +243,15 @@ namespace Accounts.Infrastructure.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_ApplicationId_Slug",
+                name: "IX_Roles_AppId_Slug",
                 table: "Roles",
-                columns: new[] { "ApplicationId", "Slug" },
+                columns: new[] { "AppId", "Slug" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_FatherIdId",
+                name: "IX_Roles_FatherId",
                 table: "Roles",
-                column: "FatherIdId");
+                column: "FatherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",

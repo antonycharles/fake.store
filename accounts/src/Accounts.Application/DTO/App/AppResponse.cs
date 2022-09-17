@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Accounts.Core.Enums;
 
-namespace Accounts.Application.DTOs.App
+namespace Accounts.Application.DTO.Apps
 {
     public class AppResponse : BaseResponse
     {
