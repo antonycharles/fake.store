@@ -12,6 +12,7 @@ namespace Accounts.Core.Repositories.Base
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetFirstAsync(Expression<Func<T, bool>> predicate);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetByIdAsync(Guid id);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);

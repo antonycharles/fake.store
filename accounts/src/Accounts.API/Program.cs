@@ -13,12 +13,10 @@ builder.AddDataBase();
 
 builder.Services.AddDependencyInjectionConfiguration();
 
-
-
-
 var app = builder.Build();
 
-DbConfiguration.AddMigration(app);
+app.AddMigration();
+app.SeedData();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,6 +32,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 app.Run();

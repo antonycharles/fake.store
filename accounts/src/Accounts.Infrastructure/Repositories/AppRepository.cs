@@ -9,7 +9,7 @@ using Accounts.Infrastructure.Repositories.Base;
 
 namespace Accounts.Infrastructure.Repositories
 {
-    public class AppRepository : Repository<App>, IAppRepository
+    public class AppRepository : Repository<AppEntity>, IAppRepository
     {
         public AppRepository(AccountsContext dbContext) : base(dbContext)
         {

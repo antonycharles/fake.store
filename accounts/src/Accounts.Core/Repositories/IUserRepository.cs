@@ -7,8 +7,8 @@ using Accounts.Core.Repositories.Base;
 
 namespace Accounts.Core.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<UserEntity>
     {
-        
+        Task<UserEntity> GetByEmail(string email);
     }
 }

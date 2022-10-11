@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class ClientProfileEntityConfiguration : IEntityTypeConfiguration<ClientProfile>
+    public class ClientProfileEntityConfiguration : IEntityTypeConfiguration<ClientProfileEntity>
     {
-        public void Configure(EntityTypeBuilder<ClientProfile> builder)
+        public void Configure(EntityTypeBuilder<ClientProfileEntity> builder)
         {
             builder
                 .HasKey(s => new { s.ProfileId, s.ClientId });

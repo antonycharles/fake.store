@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Accounts.Application.Handlers;
+using Accounts.Application.Modules.Authorization;
+using Accounts.Application.Modules.User;
 using Accounts.Core.Repositories;
 using Accounts.Core.Repositories.Base;
 using Accounts.Infrastructure.Repositories;
@@ -21,8 +18,10 @@ namespace Accounts.API.Configurations
 
         private static void AddHandlerDependencyInjection(this IServiceCollection services)
         {
-            services.AddScoped<AppHandler>();
-            services.AddScoped<RoleHandler>();
+            services.AddScoped<IAuthorizationHandler,AuthorizationHandler>();
+            services.AddScoped<IUserHandler,UserHandler>();
+           // services.AddScoped<AppHandler>();
+           // services.AddScoped<RoleHandler>();
         }
 
 
@@ -31,7 +30,9 @@ namespace Accounts.API.Configurations
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAppRepository,AppRepository>();
+            services.AddScoped<IProfileRepository,ProfileRepository>();
             services.AddScoped<IRoleRepository,RoleRepository>();
+            services.AddScoped<IUserProfileRepository, UserProfileRepository>();
         }
     }
 }

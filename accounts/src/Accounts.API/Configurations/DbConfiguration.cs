@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Accounts.Infrastructure.Data;
+using Accounts.Infrastructure.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accounts.API.Configurations
@@ -33,6 +34,22 @@ namespace Accounts.API.Configurations
                     var logger = loggerFactory.CreateLogger<Program>();
                     logger.LogError(exception, "An error occurred migration the DB.");
                 }
+            }
+        }
+
+        public static void SeedData(this IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetService<AccountsContext>();
+                
+                AppSeeder.Seed(context);
+                RoleSeeder.Seed(context);
+                ClientSeeder.Seed(context);
+                ProfileSeeder.Seed(context);
+                ProfileRoleSeeder.Seed(context);
+                ClientProfileSeeder.Seed(context);
             }
         }
     }

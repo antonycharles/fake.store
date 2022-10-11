@@ -3,7 +3,7 @@ using Accounts.Core.Repositories.Base;
 
 namespace Accounts.Core.Repositories
 {
-    public interface IRoleRepository : IRepository<Role>
+    public interface IRoleRepository : IRepository<RoleEntity>
     {
         
     }

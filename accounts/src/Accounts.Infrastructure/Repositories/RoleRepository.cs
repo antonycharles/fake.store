@@ -5,7 +5,7 @@ using Accounts.Infrastructure.Repositories.Base;
 
 namespace Accounts.Infrastructure.Repositories
 {
-    public class RoleRepository : Repository<Role>, IRoleRepository
+    public class RoleRepository : Repository<RoleEntity>, IRoleRepository
     {
         public RoleRepository(AccountsContext dbContext) : base(dbContext)
         {

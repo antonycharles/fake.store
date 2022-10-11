@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class AppEntityConfiguration : IEntityTypeConfiguration<App>
+    public class AppEntityConfiguration : IEntityTypeConfiguration<AppEntity>
     {
-        public void Configure(EntityTypeBuilder<App> builder)
+        public void Configure(EntityTypeBuilder<AppEntity> builder)
         {
             builder
                 .Property(s => s.Status)

@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class ProfileRoleEntityConfiguration : IEntityTypeConfiguration<ProfileRole>
+    public class ProfileRoleEntityConfiguration : IEntityTypeConfiguration<ProfileRoleEntity>
     {
-        public void Configure(EntityTypeBuilder<ProfileRole> builder)
+        public void Configure(EntityTypeBuilder<ProfileRoleEntity> builder)
         {
             builder
                 .HasKey(s => new { s.ProfileId, s.RoleId });

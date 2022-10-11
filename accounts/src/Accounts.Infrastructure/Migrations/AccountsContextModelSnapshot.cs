@@ -22,7 +22,7 @@ namespace Accounts.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Accounts.Core.Entities.App", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.AppEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,33 @@ namespace Accounts.Infrastructure.Migrations
                     b.ToTable("Apps");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Client", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.CallBackEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppId");
+
+                    b.ToTable("CallBacks");
+                });
+
+            modelBuilder.Entity("Accounts.Core.Entities.ClientEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,9 +98,6 @@ namespace Accounts.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PublicKey")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("SecretKey")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,33 +117,7 @@ namespace Accounts.Infrastructure.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.ClientCallBack", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("ClientCallBacks");
-                });
-
-            modelBuilder.Entity("Accounts.Core.Entities.ClientProfile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ClientProfileEntity", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
@@ -128,14 +125,22 @@ namespace Accounts.Infrastructure.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ClientEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProfileEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ProfileId", "ClientId");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientEntityId");
+
+                    b.HasIndex("ProfileEntityId");
 
                     b.ToTable("ClientsProfiles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Profile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ProfileEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,7 +185,7 @@ namespace Accounts.Infrastructure.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.ProfileRole", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ProfileRoleEntity", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
@@ -188,14 +193,22 @@ namespace Accounts.Infrastructure.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ProfileEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("RoleEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ProfileId", "RoleId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("ProfileEntityId");
+
+                    b.HasIndex("RoleEntityId");
 
                     b.ToTable("ProfilesRoles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Role", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.RoleEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,7 +252,7 @@ namespace Accounts.Infrastructure.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.User", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +295,7 @@ namespace Accounts.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.UserProfile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.UserProfileEntity", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
@@ -290,16 +303,24 @@ namespace Accounts.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ProfileEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ProfileId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProfileEntityId");
+
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("UsersProfiles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Client", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.CallBackEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.App", "App")
+                    b.HasOne("Accounts.Core.Entities.AppEntity", "App")
                         .WithMany()
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -308,35 +329,31 @@ namespace Accounts.Infrastructure.Migrations
                     b.Navigation("App");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.ClientCallBack", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ClientEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.Client", "Client")
+                    b.HasOne("Accounts.Core.Entities.AppEntity", "App")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("App");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.ClientProfile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ClientProfileEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.Client", null)
+                    b.HasOne("Accounts.Core.Entities.ClientEntity", null)
                         .WithMany("ClientsProfiles")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ClientEntityId");
 
-                    b.HasOne("Accounts.Core.Entities.Profile", null)
+                    b.HasOne("Accounts.Core.Entities.ProfileEntity", null)
                         .WithMany("ProfilesClients")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProfileEntityId");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Profile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ProfileEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.App", "App")
+                    b.HasOne("Accounts.Core.Entities.AppEntity", "App")
                         .WithMany()
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -345,30 +362,26 @@ namespace Accounts.Infrastructure.Migrations
                     b.Navigation("App");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.ProfileRole", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ProfileRoleEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.Profile", null)
+                    b.HasOne("Accounts.Core.Entities.ProfileEntity", null)
                         .WithMany("ProfilesRoles")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProfileEntityId");
 
-                    b.HasOne("Accounts.Core.Entities.Role", null)
+                    b.HasOne("Accounts.Core.Entities.RoleEntity", null)
                         .WithMany("RolesProfiles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("RoleEntityId");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Role", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.RoleEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.App", "App")
+                    b.HasOne("Accounts.Core.Entities.AppEntity", "App")
                         .WithMany()
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Accounts.Core.Entities.Role", "Father")
+                    b.HasOne("Accounts.Core.Entities.RoleEntity", "Father")
                         .WithMany()
                         .HasForeignKey("FatherId");
 
@@ -377,27 +390,23 @@ namespace Accounts.Infrastructure.Migrations
                     b.Navigation("Father");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.UserProfile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.UserProfileEntity", b =>
                 {
-                    b.HasOne("Accounts.Core.Entities.Profile", null)
+                    b.HasOne("Accounts.Core.Entities.ProfileEntity", null)
                         .WithMany("ProfilesUsers")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProfileEntityId");
 
-                    b.HasOne("Accounts.Core.Entities.User", null)
+                    b.HasOne("Accounts.Core.Entities.UserEntity", null)
                         .WithMany("UsersProfiles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("UserEntityId");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Client", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ClientEntity", b =>
                 {
                     b.Navigation("ClientsProfiles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Profile", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.ProfileEntity", b =>
                 {
                     b.Navigation("ProfilesClients");
 
@@ -406,12 +415,12 @@ namespace Accounts.Infrastructure.Migrations
                     b.Navigation("ProfilesUsers");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.Role", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.RoleEntity", b =>
                 {
                     b.Navigation("RolesProfiles");
                 });
 
-            modelBuilder.Entity("Accounts.Core.Entities.User", b =>
+            modelBuilder.Entity("Accounts.Core.Entities.UserEntity", b =>
                 {
                     b.Navigation("UsersProfiles");
                 });

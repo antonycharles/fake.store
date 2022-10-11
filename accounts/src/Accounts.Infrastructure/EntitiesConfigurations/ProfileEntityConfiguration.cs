@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class ProfileEntityConfiguration : IEntityTypeConfiguration<Profile>
+    public class ProfileEntityConfiguration : IEntityTypeConfiguration<ProfileEntity>
     {
-        public void Configure(EntityTypeBuilder<Profile> builder)
+        public void Configure(EntityTypeBuilder<ProfileEntity> builder)
         {
             builder
                 .Property(s => s.Status)

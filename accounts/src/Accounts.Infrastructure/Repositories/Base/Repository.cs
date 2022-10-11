@@ -13,7 +13,7 @@ namespace Accounts.Infrastructure.Repositories.Base
      public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly AccountsContext _dbContext;
-        private DbSet<T> _table;
+        protected DbSet<T> _table;
 
         public Repository(AccountsContext dbContext)
         {
@@ -40,6 +40,11 @@ namespace Accounts.Infrastructure.Repositories.Base
         public virtual async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _table.Where(predicate).AnyAsync();
         }
 
         public async Task<T> AddAsync(T entity)

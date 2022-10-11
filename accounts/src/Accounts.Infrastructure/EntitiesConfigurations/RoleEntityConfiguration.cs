@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
+    public class RoleEntityConfiguration : IEntityTypeConfiguration<RoleEntity>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<RoleEntity> builder)
         {
             builder
                 .HasIndex(s => new { s.AppId, s.Slug })

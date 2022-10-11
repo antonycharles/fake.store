@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Accounts.Infrastructure.EntitiesConfigurations
 {
-    public class ClientEntityConfiguration : IEntityTypeConfiguration<Client>
+    public class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity>
     {
-        public void Configure(EntityTypeBuilder<Client> builder)
+        public void Configure(EntityTypeBuilder<ClientEntity> builder)
         {
             builder
                 .Property(s => s.Status)

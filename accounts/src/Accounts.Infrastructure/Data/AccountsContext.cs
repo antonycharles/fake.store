@@ -27,14 +27,14 @@ namespace Accounts.Infrastructure.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<ClientCallBack> ClientCallBacks { get; set;} 
-        public DbSet<App> Apps { get; set; }
-        public DbSet<ClientProfile> ClientsProfiles { get; set; }
-        public DbSet<ProfileRole> ProfilesRoles { get; set; }
-        public DbSet<UserProfile> UsersProfiles { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
+        public DbSet<ProfileEntity> Profiles { get; set; }
+        public DbSet<ClientEntity> Clients { get; set; }
+        public DbSet<CallBackEntity> CallBacks { get; set;} 
+        public DbSet<AppEntity> Apps { get; set; }
+        public DbSet<ClientProfileEntity> ClientsProfiles { get; set; }
+        public DbSet<ProfileRoleEntity> ProfilesRoles { get; set; }
+        public DbSet<UserProfileEntity> UsersProfiles { get; set; }
     }
 }
