@@ -35,5 +35,15 @@ namespace Accounts.Application.Modules.User
 
             return user.ToResponse();
         }
+
+        public async Task<UserResponse> GetOrCreateByEmailAsync(UserRequest request)
+        {
+            var user = await _userRepository.GetByEmail(request.Email);
+            
+            if(user != null)
+                user.ToResponse();
+
+            return await CreateAsync(request);
+        }
     }
 }

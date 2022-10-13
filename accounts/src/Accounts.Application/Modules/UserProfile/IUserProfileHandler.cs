@@ -4,6 +4,6 @@ namespace Accounts.Application.Modules.UserProfile
 {
     public interface IUserProfileHandler
     {
-        Task CreateAsync(UserProfileRequest userProfileRequest);
+        Task<UserProfileResponse> CreateAsync(UserProfileRequest userProfileRequest);
     }
 }

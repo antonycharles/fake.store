@@ -19,7 +19,7 @@ namespace Accounts.Application.Modules.UserProfile
             _profileRepository = profileRepository ?? throw new ArgumentNullException(nameof(profileRepository));
         }
 
-        public async Task CreateAsync(UserProfileRequest userProfileRequest)
+        public async Task<UserProfileResponse> CreateAsync(UserProfileRequest userProfileRequest)
         {
             var profiles = await _profileRepository.GetAsync(w => w.AppId == userProfileRequest.AppId);
 
@@ -30,6 +30,8 @@ namespace Accounts.Application.Modules.UserProfile
             userProfileRequest.PrifileId = profile.Id;
 
             var userProfile = await _userProfileRepository.AddAsync(userProfileRequest.ToUserProfile());
+
+            return userProfile.ToResponse();
 
         }
 

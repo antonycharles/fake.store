@@ -9,6 +9,8 @@ namespace Accounts.Core.Entities
     public class ClientProfileEntity
     {
         public Guid ClientId { get; set; }
+        public ClientEntity Client { get; set; }
         public Guid ProfileId { get; set; }
+        public ProfileEntity Profile { get; set; }
     }
 }

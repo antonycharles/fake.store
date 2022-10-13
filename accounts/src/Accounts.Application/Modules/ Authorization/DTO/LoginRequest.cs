@@ -11,7 +11,6 @@ namespace Accounts.Application.Modules.Authorization.DTO
         [StringLength(100, MinimumLength = 6)]
         public string Password { get; set; }
         [Required]
-        public Guid ClientId { get; set;}
-        public Guid? ProfileId { get; set;}
+        public Guid AppId { get; set;}
     }
 }

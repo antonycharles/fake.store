@@ -1,5 +1,6 @@
 using Accounts.Application.Modules.Authorization;
 using Accounts.Application.Modules.User;
+using Accounts.Application.Modules.UserProfile;
 using Accounts.Core.Repositories;
 using Accounts.Core.Repositories.Base;
 using Accounts.Infrastructure.Repositories;
@@ -20,6 +21,7 @@ namespace Accounts.API.Configurations
         {
             services.AddScoped<IAuthorizationHandler,AuthorizationHandler>();
             services.AddScoped<IUserHandler,UserHandler>();
+            services.AddScoped<IUserProfileHandler, UserProfileHandler>();
            // services.AddScoped<AppHandler>();
            // services.AddScoped<RoleHandler>();
         }

@@ -32,7 +32,7 @@ public class AuthorizationController : ControllerBase
 
     [HttpPost("register")]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> CreateAsync(UserRequest request)
+    public async Task<IActionResult> CreateAsync(RegisterRequest request)
     {
         try
         {
